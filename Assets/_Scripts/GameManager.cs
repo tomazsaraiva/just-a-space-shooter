@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        if(Instance != null)
+        if (Instance != null)
         {
             Destroy(gameObject);
         }
@@ -54,7 +54,7 @@ public class GameManager : MonoBehaviour
         using StreamWriter writer = File.AppendText(_saveFilePath);
         writer.WriteLine(string.Format("{0};{1}", PlayerInitials, score));
 
-        if(Highscore == null || score > Highscore.ScoreValue)
+        if (Highscore == null || score > Highscore.ScoreValue)
         {
             SaveHighscore(score);
         }

@@ -13,10 +13,12 @@ public class Player : MonoBehaviour
 
     private int _currenthealth;
     private BulletShooter _shooter;
+    private Animator _animator;
 
     private void Start()
     {
         _shooter = GetComponentInChildren<BulletShooter>();
+        _animator = GetComponent<Animator>();
 
         _currenthealth = _healthPoints;
     }
@@ -28,9 +30,11 @@ public class Player : MonoBehaviour
         Move(Vector3.right * horizontal);
         Move(Vector3.forward * vertical);
 
-        transform.rotation = Quaternion.Euler(0, 0, -_maxAngle * horizontal);
+        // transform.rotation = Quaternion.Euler(0, 0, -_maxAngle * horizontal);
+        _animator.SetFloat("inputX", horizontal);
 
-        if(Input.GetKeyDown(KeyCode.Space))
+
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             _shooter.Shoot();
         }
@@ -50,7 +54,7 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.TryGetComponent(out PowerUp powerUp))
+        if (other.TryGetComponent(out PowerUp powerUp))
         {
             _shooter.PowerUp(true);
             Invoke("DisablePowerUp", powerUp.Duration);
